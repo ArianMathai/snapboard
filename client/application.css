@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+}
+#root{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+}
+body{
+
+}
+main{
+    min-width: 80%;
+    max-width: 400px;
+    margin-inline: auto;
+    margin-block: 1em;
+    border-radius: 1em;
+
+}
+
+header,
+nav,
+footer{
+    padding-inline: 1em;
+}
+
+nav {
+    background-color: grey;
+    display: flex;
+    column-gap: 1em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-block: 0.25em;
+}
+form{
+    display: flex;
+    column-gap: 1em;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+form label {
+    padding: 0.25em;
+}
+
+
+nav a{
+    color:white;
+    text-decoration: none;
+}
+.message-board{
+
+}
+.message-list{
+    border: 0.25em solid black;
+    padding: 0;
+
+}
+.message-item{
+    list-style-type: none;
+    border: 1px solid black;
+
+   padding: 0.75em;
+}
+.message-list-message{
+    text-decoration: none;
+}
+#massage-input-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.home-container{
+    display: flex;
+    border: 2px lightgray dashed;
+    padding: 2em;
+}
+.homeText{
+    font-family: "Toppan Bunkyu Mincho";
+}
