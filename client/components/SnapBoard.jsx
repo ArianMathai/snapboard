@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import MessageInput from "./MessageInput";
 import {Link} from "react-router-dom";
 import {useAuth} from "../context/AuthContext";
@@ -9,6 +9,8 @@ const SnapBoard = () => {
     const [loading, setLoading] = useState(false);
 
     const{isAuthorized, setIsAuthorized, isCookiePresent} = useAuth();
+
+    const messageRef = useRef(null);
 
 
     async function fetchMessages(){
@@ -23,6 +25,12 @@ const SnapBoard = () => {
             throw error;
         }
     }
+
+    useEffect(() => {
+        if (messageRef.current) {
+            messageRef.current.scrollTop = messageRef.current.scrollHeight;
+        }
+    }, [messages]);
 
 
     useEffect(() => {
@@ -40,7 +48,7 @@ const SnapBoard = () => {
         <div className="message-board">
             <h2>SnapBoard 👻</h2>
 
-            <ul className="message-list">
+            <ul className="message-list" ref={messageRef}>
                 {!loading ? messages.map((m, index) => (
                     <li key={index} className="message-item">
                         <div className={"message-list-message"}>

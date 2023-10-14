@@ -50,10 +50,12 @@ nav a{
 .message-board{
 
 }
-.message-list{
+
+.message-list {
     border: 0.25em solid black;
     padding: 0;
-
+    max-height: 60vh;
+    overflow-y: scroll;
 }
 .message-item{
     list-style-type: none;
