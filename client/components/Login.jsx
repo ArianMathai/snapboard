@@ -1,20 +1,16 @@
-import React, {useContext, useMemo, useState} from "react";
+import React, { useMemo, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import AuthContext, {useAuth} from "../context/AuthContext";
 
 function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const {setAuth} = useAuth();
-
     const navigate = useNavigate()
 
     const isValidCredentials = useMemo(() => {
         return username.length === 0 && password.length === 0;
     }, [ username, password])
-
 
 
     async function handleLogin(e) {
@@ -28,7 +24,6 @@ function Login() {
             },
         });
         if (res.ok) {
-            setAuth(true);
             navigate("/snapboard");
         }
         setUsername("");

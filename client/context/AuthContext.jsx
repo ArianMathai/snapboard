@@ -7,10 +7,15 @@ export function useAuth(){
 }
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    function isCookiePresent(cookieName){
+        const cookie = document.cookie;
+        return cookie.includes(`${cookieName}=`)
+    }
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth }}>
+        <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, isCookiePresent }}>
             {children}
         </AuthContext.Provider>
     );

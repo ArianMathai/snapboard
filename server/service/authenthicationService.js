@@ -1,5 +1,6 @@
 import {getUserByUsername, getUserCredentials, postUser} from "../repository/userDataAccess.js";
 import {verifyPassword,hashPassword} from "../utils/sha256.js";
+import jwt from "jsonwebtoken";
 
 export async function registerUser(username, password){
     try{
@@ -37,7 +38,9 @@ export async function userLogin(username, password){
             return {success:false,message:"Login failed"};
         }
 
-        return {success:true, message: "Successful login", id:id};
+        const token = jwt.sign(user,process.env.MY_SECRET,{ expiresIn: "1h"});
+
+        return {success:true, message: "Successful login", id:id,token:token};
     } catch (error){
         throw error;
     }

@@ -4,13 +4,14 @@ import bodyParser from "body-parser";
 import {authenticationRoutes} from "./controller/authenthicationRoutes.js";
 import {snapBoardRoutes} from "./controller/snapBoardRoutes.js";
 import cookieParser from "cookie-parser";
+import cookieJwtAuth from "./middleware/cookieJwtAuth.js"
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser("secret-cookies"))
 
 app.use("/api/authentication", authenticationRoutes);
-app.use("/api/snapboard", snapBoardRoutes);
+app.use("/api/snapboard",cookieJwtAuth, snapBoardRoutes);
 
 app.use(express.static("../client/dist"));
 

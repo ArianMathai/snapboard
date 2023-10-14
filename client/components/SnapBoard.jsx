@@ -1,14 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import MessageInput from "./MessageInput";
-import {json, Link} from "react-router-dom";
-import AuthContext, {useAuth} from "../context/AuthContext";
+import {Link} from "react-router-dom";
+import {useAuth} from "../context/AuthContext";
 
 const SnapBoard = () => {
 
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const {auth} = useAuth();
+    const{isAuthorized, setIsAuthorized, isCookiePresent} = useAuth();
+
 
     async function fetchMessages(){
         try {
@@ -17,22 +18,28 @@ const SnapBoard = () => {
             if (response.ok) {
                 const data = await response.json();
                 setMessages(data.messages);
-                console.log(messages);
             }
         } catch (error){
             throw error;
         }
     }
 
+
     useEffect(() => {
-        fetchMessages().then(loading=>true);
+        setIsAuthorized(isCookiePresent('authorization'));
     }, []);
+
+
+    useEffect(() => {
+        isAuthorized?fetchMessages().then(loading=>true) : null;
+    }, [isAuthorized]);
 
     return (
         <>
-        {auth ?
+        {isAuthorized?
         <div className="message-board">
             <h2>SnapBoard 👻</h2>
+
             <ul className="message-list">
                 {!loading ? messages.map((m, index) => (
                     <li key={index} className="message-item">
@@ -43,9 +50,8 @@ const SnapBoard = () => {
                 )):<div>loading ...</div>}
             </ul>
             <MessageInput fetchMessages={fetchMessages} />
-        </div>: <div><Link to={"/login"}><button>Login</button></Link> to see SnapBoard 👻</div>}
+        </div> : <div><Link to={"/login"}><button>Login</button></Link> to see SnapBoard 👻</div>}
         </>
-
 
     );
 };

@@ -2,10 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client"
 import MessageApplication from "./components/MessageApplication";
 import {BrowserRouter} from "react-router-dom";
+import {AuthProvider} from "./context/AuthContext";
 
 import "./application.css";
-import AuthContext, {AuthProvider} from "./context/AuthContext";
-import authContext from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
