@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message Application renders correctly 1`] = `
+[
+  <header>
+    <a
+      href="/"
+      onClick={[Function]}
+      style={
+        {
+          "color": "black",
+          "textDecoration": "none",
+        }
+      }
+    >
+      <h2>
+        SnapBoard 👻
+      </h2>
+    </a>
+  </header>,
+  <nav>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Home
+    </a>
+    <a
+      href="/snapboard"
+      onClick={[Function]}
+    >
+      SnapBoard
+    </a>
+    <div
+      style={
+        {
+          "flex": 1,
+        }
+      }
+    />
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      Login
+    </a>
+  </nav>,
+  <main>
+    <div
+      className="home-container"
+    >
+      <p
+        className="homeText"
+      >
+        Velkommen til det digitale anarkiet, et fristed for dine tanker og meninger hvor ingen ansiktstrekk avsløres. Dette er din virtuelle maskerade, en helligdom for fri tanke. Her kan du kaste din stemme til vinden og la dine ord danse anonymt blant de digitale skyggene. Respekt er nøkkelen, selv i anonymitetens skjul, for vi tror på den usynlige sosiale kontrakten som binder oss alle sammen. Bli en del av dette sanatoriumet for det usagte, men husk, selv i anonymitetens frihet, har ordene dine makt. Trå varsomt i denne digitale villmarken.Velkommen til ville vesten.
+      </p>
+    </div>
+  </main>,
+  <footer>
+    By Arian☠️ and Simen☠️
+  </footer>,
+]
+`;
+
+exports[`Sign in page renders correctly renders correctly 1`] = `
+<div>
+  <form>
+    <label>
+      Username:
+      <div>
+        <input
+          name="username"
+          onChange={[Function]}
+          type="text"
+        />
+      </div>
+    </label>
+    <label>
+      Password:
+      <div>
+        <input
+          name="password"
+          onChange={[Function]}
+          type="password"
+        />
+      </div>
+    </label>
+    <div>
+      <button
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Sign in
+      </button>
+      <a
+        href="/signup"
+        onClick={[Function]}
+      >
+        <button>
+          Sign up
+        </button>
+      </a>
+    </div>
+  </form>
+</div>
+`;
