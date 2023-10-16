@@ -22,7 +22,7 @@ authenticationRoutes.post("/login", async (req, res) => {
         const result = await userLogin(username, password);
 
         if (!result.success) {
-            res.status(400).json({message: result.message})
+            res.status(401).json({message: result.message})
         } else {
             res.cookie("token", result.token,{
                 httpOnly:true
