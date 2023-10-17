@@ -28,7 +28,7 @@ export async function userLogin(username, password){
         const user = await getUserByUsername(username);
 
         if(!user){
-            return {success:false,message:"Not a valid username."};
+            return {success:false,message:"Login Failed."};
         }
 
         const isVerified = verifyPassword(password,user.password);
