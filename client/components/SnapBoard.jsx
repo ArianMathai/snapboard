@@ -60,7 +60,6 @@ const SnapBoard = () => {
             <MessageInput fetchMessages={fetchMessages} />
         </div> : <div><Link to={"/login"}><button>Login</button></Link> to see SnapBoard 👻</div>}
         </>
-
     );
 };
 

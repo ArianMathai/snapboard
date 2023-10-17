@@ -5,6 +5,7 @@ function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage,setErrorMessage] = useState();
 
     const navigate = useNavigate()
 
@@ -24,8 +25,14 @@ function Login() {
             },
         });
         if (res.ok) {
+            setUsername("");
+            setPassword("");
             navigate("/snapboard");
         }
+
+        const data = await res.json();
+
+        setErrorMessage(data.message)
         setUsername("");
         setPassword("");
     }
@@ -53,6 +60,7 @@ function Login() {
                     <Link to="/signup">
                         <button>Sign up</button>
                     </Link>
+                    {errorMessage?<div>{errorMessage}</div>:null}
                 </div>
             </form>
         </div>

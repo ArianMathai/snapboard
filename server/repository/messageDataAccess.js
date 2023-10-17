@@ -1,15 +1,9 @@
-import {MongoClient} from "mongodb";
-import * as dotenv from "dotenv";
-
-dotenv.config();
-
-const url = process.env.MONGODB;
-const client = new MongoClient(url);
+import {connectToDatabase} from "../utils/dbUtils.js";
 
 export async function postUserMessage(message, time, user) {
     try {
-        await client.connect();
-        const db = await client.db("messageApp");
+
+        const db = await connectToDatabase();
         const collection = db.collection("snapboard");
         return await collection.insertOne({message: message, time: time, user: user});
 
@@ -20,8 +14,7 @@ export async function postUserMessage(message, time, user) {
 
 export async function fetchMessages(){
     try {
-        await client.connect();
-        const db = await client.db("messageApp");
+        const db = await connectToDatabase();
         const collection = db.collection("snapboard");
         return await collection.find({}).toArray();
 

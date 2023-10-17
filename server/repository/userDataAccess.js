@@ -1,16 +1,10 @@
-import {MongoClient, ObjectId} from "mongodb";
-import * as dotenv from "dotenv";
-
-dotenv.config();
-
-const url = process.env.MONGODB;
-const client = new MongoClient(url);
+import {ObjectId} from "mongodb";
+import {connectToDatabase} from "../utils/dbUtils.js";
 
 export async function postUser(username,password){
     try {
 
-        await client.connect();
-        const db = await client.db("messageApp");
+        const db = await connectToDatabase();
         const collection = db.collection("users");
         return await collection.insertOne({username:username, password:password});
 
@@ -21,8 +15,8 @@ export async function postUser(username,password){
 
 export async function getUserCredentials(username, password){
     try {
-        await client.connect();
-        const db = client.db("messageApp");
+
+        const db = await connectToDatabase();
         const collection = db.collection("users");
         return await collection.find({username:username, password:password}).toArray();
 
@@ -33,8 +27,8 @@ export async function getUserCredentials(username, password){
 
 export async function getUserById(userId) {
     try {
-        await client.connect();
-        const db = client.db("messageApp");
+
+        const db = await connectToDatabase();
         const collection = db.collection("users");
 
         // Convert userId to ObjectId
@@ -48,8 +42,7 @@ export async function getUserById(userId) {
 }
 export async function getUserByUsername(username){
     try{
-        await client.connect();
-        const db = client.db("messageApp");
+        const db = await connectToDatabase();
         const collection = db.collection("users");
 
         return await collection.findOne({username: username});

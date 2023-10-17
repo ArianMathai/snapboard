@@ -1,5 +1,5 @@
 import request from "supertest";
-import express, {response} from "express";
+import express from "express";
 import {authenticationRoutes} from "../controller/authenthicationRoutes.js";
 import bodyParser from "body-parser";
 import * as dotenv from "dotenv";
@@ -30,7 +30,7 @@ describe("Authentication API", () => {
 });
 
 describe("Authentication API", () =>{
-    it("Should return a 200 when trying to log in with valid credentials", async () => {
+    it("Should return a 200 when trying to log in with valid credentials and return cookies", async () => {
         const user = {
             username: process.env.VALID_USERNAME,
             password: process.env.VALID_PASSWORD
@@ -41,7 +41,12 @@ describe("Authentication API", () =>{
             .set("Content-Type","application/json")
             .send(user)
 
-        expect(response.status).toBe(200);
+            expect(response.status).toBe(200)
+
+        const cookies = response.headers['set-cookie'];
+        expect(cookies).toContain('authorization=true; Path=/');
+        expect(cookies[0]).toMatch(/token=.*?; Path=\/; HttpOnly/);
 
     });
-});
+})
+

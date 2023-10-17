@@ -7,6 +7,7 @@ snapBoardRoutes.post("/postmessage", async (req, res) => {
     const {message, time} = req.body;
     const userId = req.user._id;
 
+
     try {
         const result = await addMessage(message, time, userId);
 
