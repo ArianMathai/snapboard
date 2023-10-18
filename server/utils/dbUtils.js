@@ -9,11 +9,9 @@ const uri = process.env.MONGODB;
 
 export async function connectToDatabase(){
     if(cachedDB){
-        console.log("Found cachedDB.")
         return cachedDB;
     }
     try {
-        console.log("Creating new db.")
         const client = await MongoClient.connect(uri);
         const db = await client.db("messageApp");
 

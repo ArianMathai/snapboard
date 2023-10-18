@@ -26,6 +26,23 @@ const SnapBoard = () => {
         }
     }
 
+    async function deletePost(postId){
+        try {
+
+            const response = await fetch(`/api/snapboard/delete/${postId}`,{
+                method:"DELETE",
+                headers:{
+                    "content-type":"application/json"
+                }
+            })
+
+        } catch (error){
+            throw error;
+        }
+
+        await fetchMessages();
+    }
+
     useEffect(() => {
         if (messageRef.current) {
             messageRef.current.scrollTop = messageRef.current.scrollHeight;
@@ -37,9 +54,13 @@ const SnapBoard = () => {
         setIsAuthorized(isCookiePresent('authorization'));
     }, []);
 
+    useEffect(() => {
+        console.log(messages)
+    }, [messages]);
+
 
     useEffect(() => {
-        isAuthorized?fetchMessages().then(loading=>true) : null;
+        isAuthorized?fetchMessages().then(loading=>true) : false;
     }, [isAuthorized]);
 
     return (
@@ -54,6 +75,7 @@ const SnapBoard = () => {
                         <div className={"message-list-message"}>
                             {m.user} : {m.message}
                         </div>
+                        {m.canDelete?<button onClick={()=>deletePost(m._id)}>Delete</button>:null}
                     </li>
                 )):<div>loading ...</div>}
             </ul>
