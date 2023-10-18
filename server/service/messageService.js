@@ -1,4 +1,4 @@
-import {fetchMessages, postUserMessage} from "../repository/messageDataAccess.js";
+import {fetchMessages, postUserMessage, deletePostById} from "../repository/messageDataAccess.js";
 import {getUserById} from "../repository/userDataAccess.js";
 
 export async function addMessage(message, time, id) {
@@ -10,7 +10,6 @@ export async function addMessage(message, time, id) {
             parseInt(time);
             time = time * 1000 * 60;
         }
-
 
         if (time !== "forever") {
             const newTime = Date.now() + parseInt(time);
@@ -37,8 +36,28 @@ export async function addMessage(message, time, id) {
     }
 }
 
-export async function getAllMessages(){
+export async function deletePost(id){
+
     try {
+
+        const isDeleted = await deletePostById(id);
+
+        if(!isDeleted.acknowledged){
+            return {success: false, message: "Failed to delete post"}
+        }
+
+        return {success: true, message: "Posted deleted"}
+
+    } catch (error){
+        throw error;
+    }
+}
+
+export async function getAllMessages(id){
+
+    try {
+        const user = await getUserById(id);
+
         const messages = await fetchMessages();
         const messagesToReturn = [];
 
@@ -49,11 +68,19 @@ export async function getAllMessages(){
 
         for(let i = 0; i < messages.length; i++){
             if(messages[i].time === "forever"){
-                messagesToReturn.push(messages[i]);
+                if(messages[i].user === user.username){
+                    messagesToReturn.push({...messages[i],canDelete:true})
+                } else {
+                    messagesToReturn.push({...messages[i],canDelete:false});
+                }
             }
 
             if(parseInt(messages[i].time) > Date.now()){
-                messagesToReturn.push(messages[i]);
+                if(messages[i].user === user.username){
+                    messagesToReturn.push({...messages[i],canDelete:true})
+                }else{
+                    messagesToReturn.push({...messages[i],canDelete:false});
+                }
             }
         }
 
