@@ -22,8 +22,6 @@ export async function addMessage(message, time, id) {
 
         const user = await getUserById(id);
 
-        console.log("username: " + user.username)
-
         const isPosted = await postUserMessage(message, timeToDelete, user.username);
 
         if (!isPosted.acknowledged) {
@@ -66,21 +64,12 @@ export async function getAllMessages(id){
             return {success:false, message:"No messages posted.", messages:messages}
         }
 
-        for(let i = 0; i < messages.length; i++){
-            if(messages[i].time === "forever"){
-                if(messages[i].user === user.username){
-                    messagesToReturn.push({...messages[i],canDelete:true})
-                } else {
-                    messagesToReturn.push({...messages[i],canDelete:false});
-                }
-            }
-
-            if(parseInt(messages[i].time) > Date.now()){
-                if(messages[i].user === user.username){
-                    messagesToReturn.push({...messages[i],canDelete:true})
-                }else{
-                    messagesToReturn.push({...messages[i],canDelete:false});
-                }
+        for (let i = 0; i < messages.length; i++) {
+            if (messages[i].time === "forever" || (parseInt(messages[i].time) > Date.now())) {
+                messagesToReturn.push({
+                    ...messages[i],
+                    canDelete: messages[i].user === user.username
+                });
             }
         }
 

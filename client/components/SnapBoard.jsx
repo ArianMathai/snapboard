@@ -54,6 +54,10 @@ const SnapBoard = () => {
         setIsAuthorized(isCookiePresent('authorization'));
     }, []);
 
+    useEffect(() => {
+        console.log(messages)
+    }, [messages]);
+
 
     useEffect(() => {
         isAuthorized?fetchMessages().then(loading=>true) : false;
@@ -71,7 +75,7 @@ const SnapBoard = () => {
                         <div className={"message-list-message"}>
                             {m.user} : {m.message}
                         </div>
-                        {m.canDelete?<button onClick={() =>deletePost(m._id)}>Delete</button>:null}
+                        {m.canDelete?<button onClick={()=>deletePost(m._id)}>Delete</button>:null}
                     </li>
                 )):<div>loading ...</div>}
             </ul>

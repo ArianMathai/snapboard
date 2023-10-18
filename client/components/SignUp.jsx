@@ -27,7 +27,6 @@ function SignUp () {
             })
             const data = await response.json();
             if(response.ok) {
-                console.log(data.message)
                 navigate("/login");
 
             }
@@ -40,7 +39,7 @@ function SignUp () {
 
     return (
         <div>
-            {errorMessage?<div>Error signing up. Try again. Try changing username</div>:null}
+            {errorMessage?<div>Error signing up. Try again</div>:null}
             <form>
                 <label>
                     Username:
@@ -55,7 +54,7 @@ function SignUp () {
                     </div>
                     </label>
                 <label>
-                    Confirm Password:{passwordsMismatch && "Password must match bitch!"}
+                    Confirm Password:{passwordsMismatch && "Password must match! :)"}
                     <div>
                     <input type="password" name="confirmPassword" onChange={(e) => setConfirmedPassword(e.target.value)}
                     style={!passwordsMismatch ? {} : {border: "3px solid red"}}/>

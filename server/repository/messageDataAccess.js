@@ -32,7 +32,7 @@ export async function fetchMessages(){
     try {
         const db = await connectToDatabase();
         const collection = db.collection("snapboard");
-        return await collection.find({}).toArray();
+        return  await collection.find({}).toArray();
 
     }catch (error){
         throw error;

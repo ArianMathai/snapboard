@@ -31,7 +31,7 @@ export async function getUserById(userId) {
         const db = await connectToDatabase();
         const collection = db.collection("users");
 
-        // Convert userId to ObjectId
+
         const userIdObj = new ObjectId(userId);
 
         return await collection.findOne({ _id: userIdObj });

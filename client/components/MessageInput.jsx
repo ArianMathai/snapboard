@@ -7,6 +7,8 @@ function MessageInput({fetchMessages}){
 
     async function handleSubmitMessage(e){
         e.preventDefault()
+        console.log(message);
+        console.log(time);
 
         try {
             const response = await fetch("/api/snapboard/postmessage", {
@@ -17,7 +19,6 @@ function MessageInput({fetchMessages}){
                 }
             })
             setMessage("");
-            setTime("");
             await fetchMessages();
 
         } catch (error){
@@ -34,12 +35,12 @@ function MessageInput({fetchMessages}){
                 name="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                rows={4} // Adjust the number of visible rows
-                cols={50} // Adjust the number of visible columns
+                rows={4}
+                cols={50}
             ></textarea>
             <label style={{padding: "0.5em"}}>
                 Disappearing message:
-            <select onChange={(e) => setTime(e.target.value)}>
+            <select value={time} onChange={(e) => setTime(e.target.value)}>
                 <option value="1">One Minute</option>
                 <option value="5">Five Minutes</option>
                 <option value="10">Ten Minutes</option>
