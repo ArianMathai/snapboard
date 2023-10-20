@@ -39,9 +39,9 @@ function MessageInput({fetchMessages}){
             <label style={{padding: "0.5em"}}>
                 Disappearing message:
                 <select value={time} onChange={(e) => setTime(e.target.value)}>
-                    <option value="1">One Minute</option>
                     <option value="5">Five Minutes</option>
-                    <option value="10">Ten Minutes</option>
+                    <option value="60">1 Hour</option>
+                    <option value="720">12 Hours</option>
                     <option value="forever">Forever Baby</option>
                 </select>
             </label>
