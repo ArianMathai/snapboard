@@ -3,7 +3,7 @@ import {useState} from "react";
 function MessageInput({fetchMessages}){
 
     const [message,setMessage] = useState("");
-    const [time, setTime] = useState("1");
+    const [time, setTime] = useState("5");
 
     async function handleSubmitMessage(e){
         e.preventDefault()
