@@ -1,26 +1,30 @@
 import {fetchMessages, postUserMessage, deletePostById} from "../repository/messageDataAccess.js";
-import {getUserById} from "../repository/userDataAccess.js";
+import {getGoogleUsernameBasedOnId, getUserById} from "../repository/userDataAccess.js";
 
 export async function addMessage(message, time, id) {
 
 
-        let timeToDelete = "";
+    let timeToDelete = "";
 
-        if (time!== "forever"){
-            parseInt(time);
-            time = time * 1000 * 60;
-        }
+    if (time!== "forever"){
+        parseInt(time);
+        time = time * 1000 * 60;
+    }
 
-        if (time !== "forever") {
-            const newTime = Date.now() + parseInt(time);
-            timeToDelete = newTime.toString()
-        } else {
-            timeToDelete = time;
-        }
+    if (time !== "forever") {
+        const newTime = Date.now() + parseInt(time);
+        timeToDelete = newTime.toString()
+    } else {
+        timeToDelete = time;
+    }
 
     try {
 
-        const user = await getUserById(id);
+        let user = await getUserById(id);
+
+        if(!user){
+            user = await getGoogleUsernameBasedOnId(id);
+        }
 
         const isPosted = await postUserMessage(message, timeToDelete, user.username);
 
@@ -53,8 +57,15 @@ export async function deletePost(id){
 
 export async function getAllMessages(id){
 
+
+
     try {
-        const user = await getUserById(id);
+        let user = await getUserById(id);
+
+
+        if(!user){
+            user = await getGoogleUsernameBasedOnId(id);
+        }
 
         const messages = await fetchMessages();
         const messagesToReturn = [];

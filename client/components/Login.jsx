@@ -1,5 +1,6 @@
 import React, { useMemo, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import LoginWithGoogle from "./LoginWithGoogle";
 
 function Login() {
 
@@ -40,21 +41,26 @@ function Login() {
 
     return (
         <div>
-            <form>
+            <form onSubmit={(e) => handleLogin(e)}>
                 <label>
                     Username:
                     <div>
-                    <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" />
+                        <input onChange={(e) => setUsername(e.target.value)} type="text" name="username"
+
+                        />
                     </div>
                 </label>
                 <label>
                     Password:
                     <div>
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" />
+                        <input onChange={(e) => setPassword(e.target.value)} type="password" name="password"
+                        />
                     </div>
                 </label>
                 <div>
-                    <button type="button" onClick={(e) => (handleLogin(e))} disabled={isValidCredentials}>
+                    <button type="submit"
+                            disabled={isValidCredentials}
+                    >
                         Sign in
                     </button>
                     <Link to="/signup">
@@ -63,6 +69,8 @@ function Login() {
                     {errorMessage?<div>{errorMessage}</div>:null}
                 </div>
             </form>
+
+            <LoginWithGoogle />
         </div>
     );
 }

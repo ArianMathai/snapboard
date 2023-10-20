@@ -44,25 +44,25 @@ function SignUp () {
                 <label>
                     Username:
                     <div>
-                    <input className="input" type="text" name="username" onChange={(e)=> setUsername(e.target.value)}/>
+                        <input className="input" type="text" name="username" onChange={(e)=> setUsername(e.target.value)}/>
                     </div>
                 </label>
                 <label>
                     Password:
                     <div>
-                    <input className="input" type="password" name="password" onChange={(e)=>setPassword(e.target.value)}/>
+                        <input className="input" type="password" name="password" onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
-                    </label>
+                </label>
                 <label>
                     Confirm Password:{passwordsMismatch && "Password must match! :)"}
                     <div>
-                    <input type="password" name="confirmPassword" onChange={(e) => setConfirmedPassword(e.target.value)}
-                    style={!passwordsMismatch ? {} : {border: "3px solid red"}}/>
+                        <input type="password" name="confirmPassword" onChange={(e) => setConfirmedPassword(e.target.value)}
+                               style={!passwordsMismatch ? {} : {border: "3px solid red"}}/>
                     </div>
-                    </label>
+                </label>
                 <div>
 
-                        <button onClick={(e)=>handleSignUp(e)} disabled={passwordsMismatch}>Sign up</button>
+                    <button onClick={(e)=>handleSignUp(e)} disabled={passwordsMismatch}>Sign up</button>
 
                 </div>
             </form>

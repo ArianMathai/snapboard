@@ -13,6 +13,36 @@ export async function postUser(username,password){
     }
 }
 
+export async function getGoogleUsernameBasedOnId(id){
+    try {
+
+        const db = await connectToDatabase();
+        const collection = db.collection("google-user");
+
+
+        const userIdObj = new ObjectId(id);
+
+        return await collection.findOne({ _id: userIdObj });
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function postGoogleUserBasedOnSubString(subString, username){
+
+    try {
+
+        const db = await connectToDatabase();
+        const collection = db.collection("google-user");
+        return await collection.insertOne({substring:subString, username:username});
+
+    } catch (error) {
+        throw error;
+    }
+
+}
+
 export async function getUserCredentials(username, password){
     try {
 
@@ -46,6 +76,28 @@ export async function getUserByUsername(username){
         const collection = db.collection("users");
 
         return await collection.findOne({username: username});
+
+    } catch (error){
+        throw error;
+    }
+}
+export async function getGoogleUserByUsername(username){
+    try{
+        const db = await connectToDatabase();
+        const collection = db.collection("google-user");
+
+        return await collection.findOne({username: username});
+
+    } catch (error){
+        throw error;
+    }
+}
+export async function getGoogleUserBySubString(sub){
+    try {
+        const db = await connectToDatabase();
+        const collection = db.collection("google-user");
+
+        return await collection.findOne({substring: sub});
 
     } catch (error){
         throw error;

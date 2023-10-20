@@ -1,4 +1,11 @@
-import {getUserByUsername, getUserCredentials, postUser} from "../repository/userDataAccess.js";
+import {
+    getGoogleUserBySubString,
+    getGoogleUserByUsername, getGoogleUsernameBasedOnId,
+    getUserByUsername,
+    getUserCredentials,
+    postGoogleUserBasedOnSubString,
+    postUser
+} from "../repository/userDataAccess.js";
 import {verifyPassword,hashPassword} from "../utils/sha256.js";
 import jwt from "jsonwebtoken";
 
@@ -19,6 +26,34 @@ export async function registerUser(username, password){
         return {success:true,message:""};
     }
     catch (error){
+        throw error;
+    }
+}
+
+export async function registerGoogleUser(subString, username){
+    try {
+
+        const isAlreadyUser = await getUserByUsername(username);
+        const isGoogleUser = await getGoogleUserByUsername(username);
+
+        if(isAlreadyUser || isGoogleUser){
+            return {success:false,message:"Choose another username"};
+        }
+
+        const userObject = await postGoogleUserBasedOnSubString(subString,username);
+
+        const userId = await getGoogleUsernameBasedOnId(userObject.insertedId);
+
+
+        if(!userObject.acknowledged){
+            console.log("failed to post user")
+            return {success:false,message:"Failed to post user to database"};
+        }
+
+        return {success:true,message:"Created google user",userId:userId};
+
+    } catch (error){
+        throw error;
     }
 }
 
@@ -45,4 +80,22 @@ export async function userLogin(username, password){
     } catch (error){
         throw error;
     }
+}
+
+export async function getUserBySubString(sub){
+
+    try {
+
+        const userObject = await getGoogleUserBySubString(sub);
+
+        if(!userObject){
+            return {success:false,message:"Login Failed.",user:userObject};
+        }
+
+        return {success:true,message:"Google user found.",user:userObject};
+
+    }catch (error){
+        throw error;
+    }
+
 }

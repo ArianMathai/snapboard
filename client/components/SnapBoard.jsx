@@ -58,6 +58,10 @@ const SnapBoard = () => {
         console.log(messages)
     }, [messages]);
 
+    useEffect(() => {
+        console.log(isAuthorized);
+    }, [isAuthorized]);
+
 
     useEffect(() => {
         isAuthorized?fetchMessages().then(loading=>true) : false;
@@ -65,22 +69,22 @@ const SnapBoard = () => {
 
     return (
         <>
-        {isAuthorized?
-        <div className="message-board">
-            <h2>SnapBoard 👻</h2>
+            {isAuthorized?
+                <div className="message-board">
+                    <h2>SnapBoard 👻</h2>
 
-            <ul className="message-list" ref={messageRef}>
-                {!loading ? messages.map((m, index) => (
-                    <li key={index} className="message-item">
-                        <div className={"message-list-message"}>
-                            {m.user} : {m.message}
-                        </div>
-                        {m.canDelete?<button onClick={()=>deletePost(m._id)}>Delete</button>:null}
-                    </li>
-                )):<div>loading ...</div>}
-            </ul>
-            <MessageInput fetchMessages={fetchMessages} />
-        </div> : <div><Link to={"/login"}><button>Login</button></Link> to see SnapBoard 👻</div>}
+                    <ul className="message-list" ref={messageRef}>
+                        {!loading ? messages.map((m, index) => (
+                            <li key={index} className="message-item">
+                                <div className={"message-list-message"}>
+                                    {m.user} : {m.message}
+                                </div>
+                                {m.canDelete?<button onClick={()=>deletePost(m._id)}>Delete</button>:null}
+                            </li>
+                        )):<div>loading ...</div>}
+                    </ul>
+                    <MessageInput fetchMessages={fetchMessages} />
+                </div> : <div><Link to={"/login"}><button>Login</button></Link> to see SnapBoard 👻</div>}
         </>
     );
 };

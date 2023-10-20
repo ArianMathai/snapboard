@@ -6,6 +6,7 @@ export const snapBoardRoutes = express.Router();
 snapBoardRoutes.post("/postmessage", async (req, res) => {
     const {message, time} = req.body;
     const userId = req.user._id;
+    console.log("WITHIN POST :" + userId);
 
 
     try {
@@ -26,6 +27,9 @@ snapBoardRoutes.post("/postmessage", async (req, res) => {
 snapBoardRoutes.get("/getAllMessages", async (req,res) =>{
 
     const userId = req.user._id;
+
+
+
 
     try {
         const result = await getAllMessages(userId);
