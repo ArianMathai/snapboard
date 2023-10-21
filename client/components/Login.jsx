@@ -6,6 +6,7 @@ function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage,setErrorMessage] = useState();
+    const [hover, setHover] = useState(false);
 
     const navigate = useNavigate()
 
@@ -13,6 +14,13 @@ function Login() {
         return username.length === 0 && password.length === 0;
     }, [ username, password])
 
+        const onHover = () => {
+            setHover(true);
+        };
+
+        const onLeave = () => {
+            setHover(false);
+        };
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -57,9 +65,12 @@ function Login() {
                     <button type="button" onClick={(e) => (handleLogin(e))} disabled={isValidCredentials}>
                         Sign in
                     </button>
-                    <Link to="/signup">
+                    <Link to="/signup"
+                    onMouseOver={onHover}
+                    onMouseLeave={onLeave}>
                         <button>Sign up</button>
                     </Link>
+                    {hover?<p>Chose username and password, or sign up with google - still just username and password. <password className=""></password></p> : null}
                     {errorMessage?<div>{errorMessage}</div>:null}
                 </div>
             </form>
