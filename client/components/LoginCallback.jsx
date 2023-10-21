@@ -7,6 +7,7 @@ function LoginCallback(){
     const [username, setUsername] = useState("");
     const [hasUser, setHasUser] = useState(true);
     const navigate = useNavigate();
+    const [hover, setHover] = useState(false);
 
     const {setIsAuthorized} = useAuth();
 
@@ -34,6 +35,14 @@ function LoginCallback(){
             navigate("/snapboard");
         }
     }
+
+    const onHover = () => {
+        setHover(true);
+    };
+
+    const onLeave = () => {
+        setHover(false);
+    };
 
     async function handleCallback(e){
         e.preventDefault()
@@ -77,7 +86,13 @@ function LoginCallback(){
                         name="username"
                         onChange={(e) => setUsername(e.target.value)}
                     />
-                    <button onClick={handleCallback}>Register Username</button>
+                    <button
+                        onClick={handleCallback}
+                        onMouseOver={onHover}
+                        onMouseLeave={onLeave}
+                    >
+                        Register Username</button>
+                    {hover?<p>You are only recognized by your username. No email or other personal data is stored.</p>:null}
                 </div>
             ) : <h2>...loading</h2>}
         </>

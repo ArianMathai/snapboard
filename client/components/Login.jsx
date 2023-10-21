@@ -80,7 +80,6 @@ function Login() {
                     {errorMessage?<div>{errorMessage}</div>:null}
                 </div>
             </form>
-
             <LoginWithGoogle />
         </div>
     );
