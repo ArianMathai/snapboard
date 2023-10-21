@@ -76,7 +76,7 @@ function Login() {
                     onMouseLeave={onLeave}>
                         <button>Sign up</button>
                     </Link>
-                    {hover?<p>Chose username and password, or sign up with google - still just username and password. <password className=""></password></p> : null}
+                    {hover?<p>Choose a username and password, or sign up with Google. Only a username is required; no personal data is stored. <password className=""></password></p> : null}
                     {errorMessage?<div>{errorMessage}</div>:null}
                 </div>
             </form>
